@@ -1,19 +1,15 @@
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+package com.moneytransfer.tests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.junit.Assert.*;
 import org.junit.*;
-
 import com.moneytransfer.domain.*;
 import com.moneytransfer.services.*;
 
 public class MoneyTransferServiceTest {
 	public MoneyTransferServiceTest() {
     }
-	
+    
+    // TODO we need to mock up the acount repository
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
@@ -37,10 +33,10 @@ public class MoneyTransferServiceTest {
     	int fromAccnt = 1;
     	int toAccnt = 2;
     	double amount = 10.0;
-    	AccountRepository repo = new AccountRepository();
+        AccountService accountService = new AccountService();
     	
     	// Act
-    	MoneyTransferResponse response = repo.TransferMoney(fromAccnt, toAccnt, amount);
+    	MoneyTransferResponse response = accountService.TransferMoney(fromAccnt, toAccnt, amount);
     	
     	// Assert
     	assertEquals(response.getTransferStatus(), true);
@@ -53,10 +49,10 @@ public class MoneyTransferServiceTest {
     	int fromAccnt = 1;
     	int toAccnt = 2;
     	double amount = 0.0;
-    	AccountRepository repo = new AccountRepository();
+    	AccountService accountService = new AccountService();
     	
     	// Act
-    	MoneyTransferResponse response = repo.TransferMoney(fromAccnt, toAccnt, amount);
+    	MoneyTransferResponse response = accountService.TransferMoney(fromAccnt, toAccnt, amount);
     	
     	// Assert
     	assertEquals(response.getTransferStatus(), false);
@@ -69,10 +65,10 @@ public class MoneyTransferServiceTest {
     	int fromAccnt = 1;
     	int toAccnt = 0;
     	double amount = 10.0;
-    	AccountRepository repo = new AccountRepository();
+        AccountService accountService = new AccountService();
     	
     	// Act
-    	MoneyTransferResponse response = repo.TransferMoney(fromAccnt, toAccnt, amount);
+    	MoneyTransferResponse response = accountService.TransferMoney(fromAccnt, toAccnt, amount);
     	
     	// Assert
     	assertEquals(response.getTransferStatus(), false);
@@ -85,28 +81,41 @@ public class MoneyTransferServiceTest {
     	int fromAccnt = 0;
     	int toAccnt = 1;
     	double amount = 10.0;
-    	AccountRepository repo = new AccountRepository();
+    	AccountService accountService = new AccountService();
     	
     	// Act
-    	MoneyTransferResponse response = repo.TransferMoney(fromAccnt, toAccnt, amount);
+    	MoneyTransferResponse response = accountService.TransferMoney(fromAccnt, toAccnt, amount);
     	
     	// Assert
     	assertEquals(response.getTransferStatus(), false);
     }
     
+    @Test
     public void shouldTransferMoneyUnsuccessfullyForInvalidParam() {
     	
     	// Arrange
     	int fromAccnt = 0;
     	int toAccnt = 0;
     	double amount = 0.0;
-    	AccountRepository repo = new AccountRepository();
+    	AccountService accountService = new AccountService();
     	
     	// Act
-    	MoneyTransferResponse response = repo.TransferMoney(fromAccnt, toAccnt, amount);
+    	MoneyTransferResponse response = accountService.TransferMoney(fromAccnt, toAccnt, amount);
     	
     	// Assert
     	assertEquals(response.getTransferStatus(), false);
+    }
+    
+    // TODO
+    @Test
+    public void shouldWithdrawMoneyFromSenderOnSuccessfullTransfer(){
+        assertEquals(true, true);
+    }
+    
+    // TODO
+    @Test
+    public void senderAndReceiverMustBeDifferentAccount(){
+        assertEquals(true, true);
     }
 
 }

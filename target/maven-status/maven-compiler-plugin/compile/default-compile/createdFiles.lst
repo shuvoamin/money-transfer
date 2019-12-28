@@ -1,0 +1,8 @@
+com/moneytransfer/tests/MoneyTransferServiceTest.class
+com/moneytransfer/api/MoneyTransferApi.class
+com/moneytransfer/domain/Account.class
+com/moneytransfer/app/AppLauncher.class
+com/moneytransfer/app/AppMain.class
+com/moneytransfer/services/MoneyTransferResponse.class
+com/moneytransfer/domain/AccountRepository.class
+com/moneytransfer/services/AccountService.class

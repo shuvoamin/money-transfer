@@ -11,7 +11,7 @@ public class Account {
 	}
 	
 	private int number;
-	private Double balance;
+	private double balance;
 	
 	public int getNumber() {
 		return number;
@@ -30,8 +30,18 @@ public class Account {
 	}
 	
 	public void makeDeposit(double ammount) {
-        balance = balance + ammount;
-        setBalance(balance);
-    }
+            balance = balance + ammount;
+            setBalance(balance);
+        }
+        
+        public Boolean withdraw(double amount) {
+            if (balance >= amount){
+                balance = balance - amount;
+                setBalance(balance);
+                return true;
+            }
+            
+            return false;
+        }
 
 }
