@@ -2,10 +2,16 @@ package com.moneytransfer.services;
 
 import com.moneytransfer.domain.Account;
 import com.moneytransfer.domain.AccountRepository;
+import com.moneytransfer.domain.IAccountRepository;
 
-public class AccountService {
+public class AccountService implements IAccountService {
     
-        private AccountRepository accountRepository = new AccountRepository();
+        private final IAccountRepository _accountRepository;
+        
+        // ideally this will be injected as dependency via some IoC tool
+        public AccountService(){
+            _accountRepository = new AccountRepository();
+        }
         
 	public MoneyTransferResponse TransferMoney(int fromAccount, int toAccount, double amount) {
 		
@@ -13,7 +19,7 @@ public class AccountService {
 		Account toAccnt = null;
 		MoneyTransferResponse transferResponse = new MoneyTransferResponse(false, "Transfer unsuccessful");
 		
-		for(Account accnt : accountRepository.GetAllAccounts()){
+		for(Account accnt : _accountRepository.GetAllAccounts()){
 			
 			if(accnt.getNumber() == fromAccount) {
 				frmAccnt = accnt;

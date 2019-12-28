@@ -16,6 +16,9 @@ public class AppLauncher {
 
         String port = System.getenv("PORT");
         if (port == null || port.isEmpty()) {
+            
+            // ideally we'll be running it a port which is available
+            // such as; we'll be checking that port is not in use
             port = "8080";
         }
 

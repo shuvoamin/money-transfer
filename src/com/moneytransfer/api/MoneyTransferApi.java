@@ -7,15 +7,21 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.moneytransfer.domain.AccountRepository;
 import com.moneytransfer.services.AccountService;
+import com.moneytransfer.services.IAccountService;
 import com.moneytransfer.services.MoneyTransferResponse;
 
 @Path("/money-transfer")
 public class MoneyTransferApi {
-	
-    private AccountService accountService = new AccountService();
+    
+    private final IAccountService _accountService;
+    
+    // ideally this will be injected as dependency via some IoC tool
+    public MoneyTransferApi(){
+        _accountService = new AccountService();
+    }
 
+    // TODO : handle exceptions
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{fromAccount}/{toAccount}/{amount}")
@@ -25,7 +31,7 @@ public class MoneyTransferApi {
             @PathParam("amount") Double amount) {
         
         MoneyTransferResponse response = 
-                accountService.TransferMoney(fromAccount, toAccount, amount);
+                _accountService.TransferMoney(fromAccount, toAccount, amount);
 
         return Response.ok(response).build();
             
